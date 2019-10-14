@@ -8,6 +8,26 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
+int         min_coordinates(char *src)
+{
+    int		min;
+    int		i;
+    int		j;
+
+    j = 0;
+    while (src[j] != '\0')
+        j++;
+    i = 2;
+    min = src[0];
+    while (i < j)
+    {
+        if(src[i] < min)
+            min = src[i];
+        i = i + 2;
+    }
+    return (min - '0');
+}
+
 char *change_example(char *example, int x_offset, int y_offset)//16lines
 {
     char *changed_example;
@@ -40,20 +60,13 @@ int     check_is_figure_is_tetramino(char *our_figure)//22lines
     i = 0;
     while(i <= 18)
     {
-/*        printf(RED"origin: %c", base_of_figures[i][0]);
-        printf("%c", base_of_figures[i][1]);
-        printf("%c", base_of_figures[i][2]);
-        printf("%c", base_of_figures[i][3]);
-        printf("%c", base_of_figures[i][4]);
-        printf("%c", base_of_figures[i][5]);
-        printf("%c", base_of_figures[i][6]);
-        printf("%c\n", base_of_figures[i][7]);
-        x_offset = find_offset(&our_figure[0]);
-        y_offset = find_offset(&our_figure[1]);*/
-        changed_example = change_example(base_of_figures[i], our_figure[0] -'0', our_figure[1] - '0');
-        printf(YELLOW"our: %s\n"RESET, our_figure);
-        printf(GREEN"changed: %s\n",changed_example);
-        if(ft_strcmp(base_of_figures[i], our_figure) == 48 || ft_strcmp(changed_example, our_figure) == 48)
+        x_offset = min_coordinates(&our_figure[0]);
+        y_offset = min_coordinates(&our_figure[1]);
+        changed_example = change_example(base_of_figures[i], x_offset, y_offset);
+       // changed_example = change_example(base_of_figures[i], our_figure[0] -'0', our_figure[1] - '0');
+        //printf(YELLOW"our: %s\n"RESET, our_figure);
+        //printf(GREEN"changed: %s\n",changed_example);
+        if(ft_strcmp(base_of_figures[i], our_figure) == 0 || ft_strcmp(changed_example, our_figure) == 0)
         {
             printf("validate figures returned 1\n");
             return (1);
@@ -63,82 +76,48 @@ int     check_is_figure_is_tetramino(char *our_figure)//22lines
     }
     return (-1);
 }
-/*
-int     find_quantity_of_figures(char *str)//27lines
-{
-    int quantity_of_figures;
-    size_t i;
-    int symb_check;
 
-    i = 0;
-    symb_check = 0;
-    quantity_of_figures = 0;
-    while (str[i])
-    {
-        if (symb_check == 4)
-        {
-            if (str[i] != '\n')
-                return (-1);
-            symb_check = 0;
-        }
-        if (str[i] == '.' || str[i] == '#')
-            symb_check++;
-        if (str[i] == '\n' && (i % 20 == 0 || !str[i + 1]))
-        {
-            quantity_of_figures+=1;
-            symb_check = 0;
-        }
-        i++;
-    }
-    return (quantity_of_figures);
-}
-*/
-
-int     find_quantity_of_figures(char *str, size_t len)
+int     find_quantity_of_figures(char *str, size_t len)//23lines
 {
-    int quantity;
     size_t size_of_dots;
     size_t size_of_sharps;
     size_t size_of_slashn;
+    size_t qual;
 
+    qual = (len - 20) / 21 + 1;
     size_of_dots = 0;
     size_of_sharps = 0;
     size_of_slashn = 0;
-
-    if (len == 20)
-        return (1);
-    while(str++)
+    while(*str)
     {
-        if()
+        if(*str == '.')
+            size_of_dots++;
+        else if(*str == '#')
+            size_of_sharps++;
+        else if(*str == '\n')
+            size_of_slashn++;
+        str++;
     }
-
-
-    return (quantity);
+    if(size_of_dots + size_of_sharps + size_of_slashn != len)
+        return (-1);
+    return (qual);
 }
 
-char    *make_string(char *arr)//34lines
+char    *make_string(char *arr, char *result)//25lines
 {
-    char *our_figure;
-
-    our_figure =ft_strnew(7);
     int i;
-    int j;
     char x_offset;
     char y_offset;
 
     y_offset = 0;
     x_offset = 0;
-    i = 0;
-    j = 0;
-
-    while (i <= 19)
+    i = -1;
+    while (i++ <= 19)
     {
         if (arr[i] == '#')
         {
-            our_figure[j] = x_offset + '0';
-            j++;
-            our_figure[j] = y_offset + '0';
-            j++;
+            *result++ = x_offset + '0';
+            *result++ = y_offset + '0';
         }
         if (arr[i] == '\n')
         {
@@ -147,9 +126,8 @@ char    *make_string(char *arr)//34lines
         }
         else
             x_offset++;
-        i++;
     }
-    return (our_figure);
+    return (result - 8);
 }
 
 int    check_figures(int qual_of_figures, char *arr)//15lines
@@ -157,15 +135,15 @@ int    check_figures(int qual_of_figures, char *arr)//15lines
     char *test_arr;
     while (qual_of_figures)
     {
-        test_arr = make_string(arr);
-        printf(YELLOW"%s\n"RESET, test_arr);
+        test_arr = make_string(arr, ft_strnew(7));
+        printf(GREEN"%s\n"RESET, test_arr);
         if(check_is_figure_is_tetramino(test_arr) == -1)
         {
-            printf(RED" ! "RESET);
+            printf(RED" error! "RESET);
             return(-1);
         }
-        printf(CYAN" ! "RESET);
-        if ((qual_of_figures-1))
+        printf(CYAN" ok! "RESET);
+        if ((qual_of_figures - 1))
             arr+=21;
         qual_of_figures--;
     }
@@ -176,10 +154,10 @@ int     check_validity(char *av)//9lines
 {
     int qual_of_figures;
     int right_figures;
-   // qual_of_figures = find_quantity_of_figures(av);
     qual_of_figures = find_quantity_of_figures(av, ft_strlen(av));
     printf("quantity of figures is : %i\n", qual_of_figures);
-    right_figures =  check_figures(qual_of_figures, av);
+    if (qual_of_figures)
+        right_figures =  check_figures(qual_of_figures, av);
     printf("right_figures is: %i\n", right_figures);
     if (right_figures > 0 && qual_of_figures > 0 && qual_of_figures <= 26)
         return (1);

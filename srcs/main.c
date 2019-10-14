@@ -24,6 +24,8 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
+
+
 int     check_validity(char *av);
 
 int     main(int ac, char **av)
