@@ -112,6 +112,7 @@ CMakeFiles/fillit.dir/libft/ft_strchr.c.o: ../libft/ft_strchr.c
 CMakeFiles/fillit.dir/libft/ft_strclr.c.o: ../libft/includes/libft.h
 CMakeFiles/fillit.dir/libft/ft_strclr.c.o: ../libft/ft_strclr.c
 
+CMakeFiles/fillit.dir/libft/ft_strcmp.c.o: ../libft/includes/libft.h
 CMakeFiles/fillit.dir/libft/ft_strcmp.c.o: ../libft/ft_strcmp.c
 
 CMakeFiles/fillit.dir/libft/ft_strcpy.c.o: ../libft/includes/libft.h
