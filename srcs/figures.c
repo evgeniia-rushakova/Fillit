@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   figures.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jslave <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/08 17:02:25 by jslave            #+#    #+#             */
-/*   Updated: 2019/10/08 17:02:29 by jslave           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 #include <stdio.h>
 #define RED     "\x1b[31m"
@@ -20,161 +8,67 @@
 #define CYAN    "\x1b[36m"
 #define RESET   "\x1b[0m"
 
-void    print_figure(int *figure, int col)//udalit
+char *change_example(char *example, int x_offset, int y_offset)//16lines
 {
+    char *changed_example;
     int i;
-    i = 0;
-    if (col == 1)
-        printf(MAGENTA"given figure: "RESET);
-    else if (col == 7)
-        printf(CYAN"this is equal figure: "RESET);
-    else
-        printf(YELLOW"our figure: "RESET);
 
-    while (i <= 7)
+    i = 0;
+    changed_example = ft_strnew(7);
+    while(i<= 7)
     {
-        if (col == 1)
-            printf(MAGENTA "%d " RESET, figure[i]);
-        else
-            printf(YELLOW "%d " RESET, figure[i]);
+       if ((i % 2) == 1)
+           changed_example[i] = example[i] + '0' + y_offset - '0';
+       else
+           changed_example[i] = example[i] + '0' + x_offset - '0';
         i++;
     }
-    printf("\n");
+    return (changed_example);
 }
 
-int     check_right_symbols(char *str, int q_of_fig)
+int     check_is_figure_is_tetramino(char *our_figure)//22lines
 {
     int i;
-    int q_of_dot;
-    int q_of_sharp;
-
-    q_of_dot = 0;
-    q_of_sharp = 0;
+    char *changed_example;
+    int x_offset;
+    int y_offset;
+    char   base_of_figures[19][8] = {"00010203", "00102030","00100111","00010212",
+                                     "00102001", "00101112", "20011121","10110212",
+                                     "00011121", "00100102","00102021","10011121",
+                                     "00011102", "00102011", "10011112","10200111",
+                                     "00011112", "00101121", "10011102"};
     i = 0;
-    while (str[i])
+    while(i <= 18)
     {
-        if (str[i] == '.')
-            q_of_dot++;
-        if (str[i] == '#')
-            q_of_sharp++;
-        if (str[i] != '\n' && str[i] != '.' && str[i] != '#')
-            return (-1);
-        i++;
-    }
-    if(!q_of_fig || (q_of_sharp/4 != q_of_fig) || (q_of_dot/12 != q_of_fig))
-        return (-1);
-    return (1);
-}
-
-int     validate_figure(int *example, int *our_figure, int x_offset, int y_offset)
-{
-    int i;
-    int count;
-
-    i = 0;
-    count = 0;
-
-       while (i <= 7)
-       {
-        //   print_figure(example,1);
-       if ((i % 2 == 1) && ((example[i] + y_offset) == our_figure[i]))
-       {
-           printf(YELLOW"y.our: %i  ", our_figure[i]);
-           printf(YELLOW"y.ex: %i\n", (example[i] + y_offset));
-           count++;
-       }
-
-       else if ((example[i] + x_offset) == our_figure[i])
-       {
-           printf(YELLOW"x.our: %i  ", our_figure[i]);
-           printf(YELLOW"x.ex: %i\n"RESET, (example[i] + x_offset));
-           count++;
-       }
-       i++;
-       }
-    if (count == i && count != 0 && i != 0)
-    {
-        printf("FIGURE IS FOUND\n");
-        return (1);
-    }
-    return (-1);
-}
-
-int     check_defined_figures(int *figure, int x_offset, int y_offset)
-{
-    int i;
-    int    base_of_figures[19][8] = {{0,0,0,1,0,2,0,3}, {0,0,1,0,2,0,3,0},{0,0,1,0,0,1,1,1},{0,0,0,1,0,2,1,2},
-                                  {0,0,1,0,2,0,0,1}, {0,0,1,0,1,1,1,2}, {2,0,0,1,1,1,2,1},{1,0,1,1,0,2,1,2},
-                                  {0,0,0,1,1,1,2,1}, {0,0,1,0,0,1,0,2},{0,0,1,0,2,0,2,1},{1,0,0,1,1,1,2,1},
-                                  {0,0,0,1,1,1,0,2}, {0,0,1,0,2,0,1,1}, {1,0,0,1,1,1,1,2},{1,0,2,0,0,1,1,1},
-                                  {0,0,0,1,1,1,1,2},{0,0,1,0,1,1,2,1}, {1,0,0,1,1,1,0,2}};
-    i = 0;
-    printf(RED"x_offset is: %i    ", x_offset);
-    printf(RED"y_offset is: %i\n"RESET, y_offset);
-    while(i <= 19)
-    {
-        if ((validate_figure(base_of_figures[i], figure, x_offset, y_offset)) == 1) {
-            print_figure(base_of_figures[i], 7);
+/*        printf(RED"origin: %c", base_of_figures[i][0]);
+        printf("%c", base_of_figures[i][1]);
+        printf("%c", base_of_figures[i][2]);
+        printf("%c", base_of_figures[i][3]);
+        printf("%c", base_of_figures[i][4]);
+        printf("%c", base_of_figures[i][5]);
+        printf("%c", base_of_figures[i][6]);
+        printf("%c\n", base_of_figures[i][7]);
+        x_offset = find_offset(&our_figure[0]);
+        y_offset = find_offset(&our_figure[1]);*/
+        changed_example = change_example(base_of_figures[i], our_figure[0] -'0', our_figure[1] - '0');
+        printf(YELLOW"our: %s\n"RESET, our_figure);
+        printf(GREEN"changed: %s\n",changed_example);
+        if(ft_strcmp(base_of_figures[i], our_figure) == 48 || ft_strcmp(changed_example, our_figure) == 48)
+        {
             printf("validate figures returned 1\n");
             return (1);
         }
+        free(changed_example);
         i++;
     }
     return (-1);
 }
-
-int     check_figure(char *str)
-{
-    int i;
-    int j;
-    int x_offset;
-    int y_offset;
-    y_offset = 0;
-    x_offset = 0;
-    i = 0;
-    j = 0;
-    int our_figure [8] = {0};
-
-    while (i <= 19)
-    {
-        if (str[i] == '#')
-        {
-            our_figure[j] = x_offset;
-            j++;
-            our_figure[j] = y_offset;
-            j++;
-        }
-        if (str[i] == '\n')
-        {
-            y_offset++;
-            x_offset = 0;
-        }
-        else
-            x_offset++;
-        i++;
-    }
-    print_figure(our_figure, 8);
-   x_offset = our_figure[0];
-   y_offset = our_figure[1];
-    if (check_defined_figures(our_figure, x_offset, y_offset) == -1)
-    {
-        printf(RED"NO_FIGURE\n"RESET);
-        return (-1);
-    }
-    else
-    {
-        printf("check_figure returned 1\n");
-        return (1);
-    }
-    return (-1);
-}
-
-int     find_quantity_of_figures(char *str)
+/*
+int     find_quantity_of_figures(char *str)//27lines
 {
     int quantity_of_figures;
-    int i;
+    size_t i;
     int symb_check;
-    int valid_figure;
 
     i = 0;
     symb_check = 0;
@@ -191,33 +85,103 @@ int     find_quantity_of_figures(char *str)
             symb_check++;
         if (str[i] == '\n' && (i % 20 == 0 || !str[i + 1]))
         {
-            if (!quantity_of_figures)
-                valid_figure = check_figure(&(str[i - 20]));
-            else
-                valid_figure = check_figure(&(str[i - 19]));
-            if (valid_figure > 0)
-            {
-                quantity_of_figures+=1;
-                symb_check = 0;
-            }
-            else
-                return (-1);
+            quantity_of_figures+=1;
+            symb_check = 0;
         }
         i++;
     }
     return (quantity_of_figures);
 }
+*/
 
-int     check_validity(char *av)
+int     find_quantity_of_figures(char *str, size_t len)
+{
+    int quantity;
+    size_t size_of_dots;
+    size_t size_of_sharps;
+    size_t size_of_slashn;
+
+    size_of_dots = 0;
+    size_of_sharps = 0;
+    size_of_slashn = 0;
+
+    if (len == 20)
+        return (1);
+    while(str++)
+    {
+        if()
+    }
+
+
+    return (quantity);
+}
+
+char    *make_string(char *arr)//34lines
+{
+    char *our_figure;
+
+    our_figure =ft_strnew(7);
+    int i;
+    int j;
+    char x_offset;
+    char y_offset;
+
+    y_offset = 0;
+    x_offset = 0;
+    i = 0;
+    j = 0;
+
+    while (i <= 19)
+    {
+        if (arr[i] == '#')
+        {
+            our_figure[j] = x_offset + '0';
+            j++;
+            our_figure[j] = y_offset + '0';
+            j++;
+        }
+        if (arr[i] == '\n')
+        {
+            y_offset++;
+            x_offset = 0;
+        }
+        else
+            x_offset++;
+        i++;
+    }
+    return (our_figure);
+}
+
+int    check_figures(int qual_of_figures, char *arr)//15lines
+{
+    char *test_arr;
+    while (qual_of_figures)
+    {
+        test_arr = make_string(arr);
+        printf(YELLOW"%s\n"RESET, test_arr);
+        if(check_is_figure_is_tetramino(test_arr) == -1)
+        {
+            printf(RED" ! "RESET);
+            return(-1);
+        }
+        printf(CYAN" ! "RESET);
+        if ((qual_of_figures-1))
+            arr+=21;
+        qual_of_figures--;
+    }
+    return (1);
+}
+
+int     check_validity(char *av)//9lines
 {
     int qual_of_figures;
-    int right_symbols;
-    qual_of_figures = find_quantity_of_figures(av);
-    right_symbols = check_right_symbols(av, qual_of_figures);
+    int right_figures;
+   // qual_of_figures = find_quantity_of_figures(av);
+    qual_of_figures = find_quantity_of_figures(av, ft_strlen(av));
     printf("quantity of figures is : %i\n", qual_of_figures);
-    if (right_symbols > 0)
-        printf("right_symbols is ok. is: %i\n", right_symbols);
-    if (qual_of_figures == -1 || right_symbols == -1)
-        return (-1);
-    return (1);
+    right_figures =  check_figures(qual_of_figures, av);
+    printf("right_figures is: %i\n", right_figures);
+    if (right_figures > 0 && qual_of_figures > 0 && qual_of_figures <= 26)
+        return (1);
+    return (-1);
 }
