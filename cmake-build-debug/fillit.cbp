@@ -286,6 +286,9 @@
 		<Unit filename="/Users/jslave/fillit/srcs/main.c">
 			<Option target="fillit"/>
 		</Unit>
+		<Unit filename="/Users/jslave/fillit/srcs/make_list_of_figures.c">
+			<Option target="fillit"/>
+		</Unit>
 		<Unit filename="/Users/jslave/fillit/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

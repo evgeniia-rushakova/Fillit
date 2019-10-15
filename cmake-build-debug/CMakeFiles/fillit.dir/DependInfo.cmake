@@ -71,6 +71,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/jslave/fillit/libft/get_next_line.c" "/Users/jslave/fillit/cmake-build-debug/CMakeFiles/fillit.dir/libft/get_next_line.c.o"
   "/Users/jslave/fillit/srcs/figures.c" "/Users/jslave/fillit/cmake-build-debug/CMakeFiles/fillit.dir/srcs/figures.c.o"
   "/Users/jslave/fillit/srcs/main.c" "/Users/jslave/fillit/cmake-build-debug/CMakeFiles/fillit.dir/srcs/main.c.o"
+  "/Users/jslave/fillit/srcs/make_list_of_figures.c" "/Users/jslave/fillit/cmake-build-debug/CMakeFiles/fillit.dir/srcs/make_list_of_figures.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 

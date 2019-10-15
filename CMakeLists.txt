@@ -73,4 +73,4 @@ add_executable(fillit
         libft/ft_toupper.c
         libft/get_next_line.c
         srcs/figures.c
-        srcs/main.c)
+        srcs/main.c srcs/make_list_of_figures.c)

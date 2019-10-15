@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/19CB2C5F-76F2-43BC-8928-1B206756C0E0/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
+CMAKE_COMMAND = /private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/F5BCB58D-CC78-4BA0-8E2C-362030816CE2/d/CLion.app/Contents/bin/cmake/mac/bin/cmake
 
 # The command to remove a file.
-RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/19CB2C5F-76F2-43BC-8928-1B206756C0E0/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
+RM = /private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/F5BCB58D-CC78-4BA0-8E2C-362030816CE2/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /Users/jslave/fillit/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/19CB2C5F-76F2-43BC-8928-1B206756C0E0/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/F5BCB58D-CC78-4BA0-8E2C-362030816CE2/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/19CB2C5F-76F2-43BC-8928-1B206756C0E0/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/private/var/folders/zz/zyxvpxvq6csfxvn_n00018xh000_7c/T/AppTranslocation/F5BCB58D-CC78-4BA0-8E2C-362030816CE2/d/CLion.app/Contents/bin/cmake/mac/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -1932,6 +1932,33 @@ srcs/main.c.s:
 	$(MAKE) -f CMakeFiles/fillit.dir/build.make CMakeFiles/fillit.dir/srcs/main.c.s
 .PHONY : srcs/main.c.s
 
+srcs/make_list_of_figures.o: srcs/make_list_of_figures.c.o
+
+.PHONY : srcs/make_list_of_figures.o
+
+# target to build an object file
+srcs/make_list_of_figures.c.o:
+	$(MAKE) -f CMakeFiles/fillit.dir/build.make CMakeFiles/fillit.dir/srcs/make_list_of_figures.c.o
+.PHONY : srcs/make_list_of_figures.c.o
+
+srcs/make_list_of_figures.i: srcs/make_list_of_figures.c.i
+
+.PHONY : srcs/make_list_of_figures.i
+
+# target to preprocess a source file
+srcs/make_list_of_figures.c.i:
+	$(MAKE) -f CMakeFiles/fillit.dir/build.make CMakeFiles/fillit.dir/srcs/make_list_of_figures.c.i
+.PHONY : srcs/make_list_of_figures.c.i
+
+srcs/make_list_of_figures.s: srcs/make_list_of_figures.c.s
+
+.PHONY : srcs/make_list_of_figures.s
+
+# target to generate assembly for a file
+srcs/make_list_of_figures.c.s:
+	$(MAKE) -f CMakeFiles/fillit.dir/build.make CMakeFiles/fillit.dir/srcs/make_list_of_figures.c.s
+.PHONY : srcs/make_list_of_figures.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -2142,6 +2169,9 @@ help:
 	@echo "... srcs/main.o"
 	@echo "... srcs/main.i"
 	@echo "... srcs/main.s"
+	@echo "... srcs/make_list_of_figures.o"
+	@echo "... srcs/make_list_of_figures.i"
+	@echo "... srcs/make_list_of_figures.s"
 .PHONY : help
 
 

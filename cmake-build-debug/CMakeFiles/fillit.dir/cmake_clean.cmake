@@ -66,6 +66,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/fillit.dir/libft/get_next_line.c.o"
   "CMakeFiles/fillit.dir/srcs/figures.c.o"
   "CMakeFiles/fillit.dir/srcs/main.c.o"
+  "CMakeFiles/fillit.dir/srcs/make_list_of_figures.c.o"
   "fillit"
   "fillit.pdb"
 )
